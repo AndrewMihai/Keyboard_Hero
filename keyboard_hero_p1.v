@@ -323,3 +323,44 @@ module display_HEX(u, v, w, x, m);
 	assign m[5] = (~x & ~w & u) | (~x & ~w & v) | (~x & v & u) | (x & w & ~v & u);
 	assign m[6] = (~x & ~w & ~v) | (~x & w & v & u) | (x & w & ~v & ~u);
 endmodule
+
+module points_counter(clock, resetn, keys, LEDsig, score1s, score10s);
+// Input: user's 4 input key signals and the 4 LED signals
+// Output:  user's score in decimal form. score1 and score2 represent a 2 digit decimal.
+// If while one of the 4 LED signals is high, the corresponding key input is high, increment the score.
+
+	input clock;
+	input resetn;
+	input [3:0] keys;
+	input [3:0] LEDsig;
+	output [3:0] score1s;
+	output [3:0] score10s;
+	
+	reg [3:0]score_10s_digit;
+	reg [3:0]score_1s_digit;
+	
+	always @(posedge resetn, negedge key[0], negedge key[1], negedge key[2], negedge key[3]) begin
+		
+		if (resetn == 1) begin
+			score_10s_digit = 4'd0
+			score_1s_digit = 4'd0
+		end
+		if (score_1s_digit == 4'd9) begin
+			score_1s_digit = 4'd0;
+			score_10s_digit = score_10s_digit + 4'd1;
+		end
+		if (LEDsig == 4'hb0001 && keys == 4'b0001)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0010 && keys == 4'b0010)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0100 && keys == 4'b0100)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1000 && keys == 4'b1000)
+			score_1s_digit = score_1s_digit + 4'd1;
+	end
+	
+	assign score1s = score_1s_digit;
+	assign score10s = score_10s_digit;
+	
+
+endmodule 
