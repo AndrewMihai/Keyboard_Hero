@@ -349,13 +349,33 @@ module points_counter(clock, resetn, keys, LEDsig, score1s, score10s);
 			score_1s_digit = 4'd0;
 			score_10s_digit = score_10s_digit + 4'd1;
 		end
-		if (LEDsig == 4'hb0001 && keys == 4'b0001)
+		if (LEDsig == 4'b0001 && keys[0] == 4'b1110)
 			score_1s_digit = score_1s_digit + 4'd1;
-		if (LEDsig == 4'b0010 && keys == 4'b0010)
+		if (LEDsig == 4'b0010 && keys == 4'b1101)
 			score_1s_digit = score_1s_digit + 4'd1;
-		if (LEDsig == 4'b0100 && keys == 4'b0100)
+		if (LEDsig == 4'b0100 && keys == 4'b1011)
 			score_1s_digit = score_1s_digit + 4'd1;
-		if (LEDsig == 4'b1000 && keys == 4'b1000)
+		if (LEDsig == 4'b1000 && keys == 4'b0111)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0011 && keys == 4'b1100)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0101 && keys == 4'b1010)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0110 && keys == 4'b1001)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b0111 && keys == 4'b1000)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1001 && keys == 4'b0110)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1010 && keys == 4'b0101)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1011 && keys == 4'b0100)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1100 && keys == 4'b0011)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1101 && keys == 4'b0010)
+			score_1s_digit = score_1s_digit + 4'd1;
+		if (LEDsig == 4'b1111 && keys == 4'b0000)
 			score_1s_digit = score_1s_digit + 4'd1;
 	end
 	
